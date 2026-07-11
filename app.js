@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 const { setUserLocals } = require('./middleware/auth');
@@ -12,6 +13,12 @@ const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Connect to MongoDB
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/ac_repair_db';
+mongoose.connect(MONGODB_URI)
+  .then(() => console.log('✔ Connected to MongoDB successfully.'))
+  .catch(err => console.error('❌ MongoDB Connection Error:', err));
 
 // Set up View Engine (EJS)
 app.set('view engine', 'ejs');

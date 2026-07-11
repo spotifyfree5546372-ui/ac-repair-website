@@ -1,14 +1,12 @@
-const { readData } = require('./dbHelper');
+const mongoose = require('mongoose');
 
-class Technician {
-  static async find() {
-    return readData('technicians.json');
-  }
+const technicianSchema = new mongoose.Schema({
+  _id: { type: String, required: true }, // Custom string identifier (e.g. 'tech-amaan')
+  id: { type: String, required: true },  // Kept for compatibility
+  name: { type: String, required: true },
+  phone: { type: String, required: true },
+  rating: { type: Number, default: 5.0 },
+  status: { type: String, default: 'active' }
+});
 
-  static async findById(id) {
-    const technicians = readData('technicians.json');
-    return technicians.find(t => t.id === id);
-  }
-}
-
-module.exports = Technician;
+module.exports = mongoose.models.Technician || mongoose.model('Technician', technicianSchema);

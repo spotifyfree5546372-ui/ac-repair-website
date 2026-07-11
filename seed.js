@@ -1,18 +1,33 @@
-const fs = require('fs');
-const path = require('path');
-const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-const DATA_DIR = path.join(__dirname, 'data');
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-}
+const Service = require('./models/Service');
+const Technician = require('./models/Technician');
+const User = require('./models/User');
+const Booking = require('./models/Booking');
+
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/ac_repair_db';
 
 async function seed() {
-  console.log('Seeding mock database...');
+  console.log('Connecting to MongoDB...');
+  await mongoose.connect(MONGODB_URI);
+  console.log('Connected!');
 
-  // 1. Services
+  console.log('Seeding database...');
+
+  // 1. Clear existing data
+  await Promise.all([
+    Service.deleteMany({}),
+    Technician.deleteMany({}),
+    User.deleteMany({}),
+    Booking.deleteMany({})
+  ]);
+  console.log('✔ Cleared existing collections.');
+
+  // 2. Services
   const services = [
     {
+      _id: 'srv-install-split',
       id: 'srv-install-split',
       name: 'Installation split AC',
       description: 'Professional mounting, connection, piping, and complete performance testing for split AC systems.',
@@ -22,6 +37,7 @@ async function seed() {
       duration: '2 Hours'
     },
     {
+      _id: 'srv-uninstall-split',
       id: 'srv-uninstall-split',
       name: 'Uninstalled split AC',
       description: 'Safe split air conditioner dismounting, pipe capping, and refrigerant recovery.',
@@ -31,6 +47,7 @@ async function seed() {
       duration: '1 Hour'
     },
     {
+      _id: 'srv-install-window',
       id: 'srv-install-window',
       name: 'Installation Window AC',
       description: 'Window air conditioner mounting, secure wall/window fitting, and sealing.',
@@ -40,6 +57,7 @@ async function seed() {
       duration: '1.5 Hours'
     },
     {
+      _id: 'srv-uninstall-window',
       id: 'srv-uninstall-window',
       name: 'Uninstalled window AC',
       description: 'Safe window air conditioner dismounting, frame removal, and clean-up.',
@@ -49,6 +67,7 @@ async function seed() {
       duration: '1 Hour'
     },
     {
+      _id: 'srv-jet-service',
       id: 'srv-jet-service',
       name: 'Jet service',
       description: 'Deep high-pressure water pump wash for filters, cooling coils, drain tray, and condenser.',
@@ -58,6 +77,7 @@ async function seed() {
       duration: '1 Hour'
     },
     {
+      _id: 'srv-gas-full',
       id: 'srv-gas-full',
       name: 'Gas charging full',
       description: 'Complete system leakage diagnostic, joint brazing, vacuumization, and full refrigerant recharge.',
@@ -67,6 +87,7 @@ async function seed() {
       duration: '2 Hours'
     },
     {
+      _id: 'srv-gas-topup',
       id: 'srv-gas-topup',
       name: 'Gas top up',
       description: 'Refueling low refrigerant levels to restore optimal cooling and pressure.',
@@ -76,47 +97,39 @@ async function seed() {
       duration: '1 Hour'
     }
   ];
-  fs.writeFileSync(path.join(DATA_DIR, 'services.json'), JSON.stringify(services, null, 2));
+  await Service.insertMany(services);
   console.log('✔ Seeded services.');
 
-  // 2. Technicians
+  // 3. Technicians
   const technicians = [
-    { id: 'tech-amaan', name: 'Amaan Khan', phone: '+91 9719316515', rating: 5.0, status: 'active' }
+    { _id: 'tech-amaan', id: 'tech-amaan', name: 'Amaan Khan', phone: '+91 9719316515', rating: 5.0, status: 'active' }
   ];
-  fs.writeFileSync(path.join(DATA_DIR, 'technicians.json'), JSON.stringify(technicians, null, 2));
+  await Technician.insertMany(technicians);
   console.log('✔ Seeded technicians.');
 
-  // 3. Users (including Admin)
-  const adminPasswordHash = await bcrypt.hash('adminpassword', 10);
-  const userPasswordHash = await bcrypt.hash('password123', 10);
-  const users = [
+  // 4. Users (including Admin)
+  // Password hashing is handled automatically by User schema pre-save hook
+  await User.create([
     {
-      id: 'user-admin',
       name: 'Admin User',
       email: 'admin@acservice.com',
-      password: adminPasswordHash,
-      role: 'admin',
-      createdAt: new Date().toISOString()
+      password: 'adminpassword',
+      role: 'admin'
     },
     {
-      id: 'user-john',
       name: 'John Doe',
       email: 'john@example.com',
-      password: userPasswordHash,
-      role: 'user',
-      createdAt: new Date().toISOString()
+      password: 'password123',
+      role: 'user'
     }
-  ];
-  fs.writeFileSync(path.join(DATA_DIR, 'users.json'), JSON.stringify(users, null, 2));
+  ]);
   console.log('✔ Seeded users (Admin: admin@acservice.com / adminpassword, User: john@example.com / password123).');
 
-  // 4. Empty bookings
-  fs.writeFileSync(path.join(DATA_DIR, 'bookings.json'), JSON.stringify([], null, 2));
-  console.log('✔ Reset bookings list.');
-
   console.log('Seed completed successfully!');
+  await mongoose.disconnect();
 }
 
 seed().catch(err => {
   console.error('Error seeding data:', err);
+  mongoose.disconnect();
 });

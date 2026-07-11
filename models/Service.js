@@ -1,32 +1,14 @@
-const { readData, writeData } = require('./dbHelper');
-const { v4: uuidv4 } = require('uuid');
+const mongoose = require('mongoose');
 
-class Service {
-  static async find() {
-    return readData('services.json');
-  }
+const serviceSchema = new mongoose.Schema({
+  _id: { type: String, required: true }, // Custom string identifier (e.g. 'srv-install-split')
+  id: { type: String, required: true },  // Kept for EJS template compatibility
+  name: { type: String, required: true },
+  description: { type: String, required: true },
+  price: { type: String, required: true },
+  category: { type: String, required: true },
+  icon: { type: String, default: 'wrench' },
+  duration: { type: String, required: true }
+});
 
-  static async findById(id) {
-    const services = readData('services.json');
-    return services.find(s => s.id === id);
-  }
-
-  static async create(serviceData) {
-    const services = readData('services.json');
-    const newService = {
-      id: uuidv4(),
-      name: serviceData.name,
-      description: serviceData.description,
-      price: serviceData.price,
-      category: serviceData.category,
-      icon: serviceData.icon || 'wrench',
-      duration: serviceData.duration || '1 Hour',
-      createdAt: new Date().toISOString()
-    };
-    services.push(newService);
-    writeData('services.json', services);
-    return newService;
-  }
-}
-
-module.exports = Service;
+module.exports = mongoose.models.Service || mongoose.model('Service', serviceSchema);

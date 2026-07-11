@@ -1,57 +1,46 @@
-const { readData, writeData } = require('./dbHelper');
+const mongoose = require('mongoose');
 
-class Booking {
-  static async find() {
-    return readData('bookings.json');
+const bookingSchema = new mongoose.Schema({
+  _id: { type: String }, // custom BK-XXXXXX string generated pre-save
+  id: { type: String },
+  userId: { type: String, required: true },
+  userName: { type: String, required: true },
+  userEmail: { type: String, required: true },
+  serviceId: { type: String, required: true },
+  serviceName: { type: String, required: true },
+  servicePrice: { type: String, required: true },
+  bookingDate: { type: String, required: true },
+  bookingTimeSlot: { type: String, required: true },
+  address: { type: String, required: true },
+  contactPhone: { type: String, required: true },
+  status: { type: String, default: 'pending', enum: ['pending', 'assigned', 'completed'] },
+  technicianId: { type: String, default: null },
+  technicianName: { type: String, default: null },
+  createdAt: { type: Date, default: Date.now }
+});
+
+// Pre-save hook to generate human-friendly booking IDs
+bookingSchema.pre('save', function(next) {
+  if (!this._id) {
+    const bookingId = 'BK-' + Math.floor(100000 + Math.random() * 900000);
+    this._id = bookingId;
+    this.id = bookingId;
   }
+  next();
+});
 
-  static async findById(id) {
-    const bookings = readData('bookings.json');
-    return bookings.find(b => b.id === id);
+// Helper statics for controller compatibility
+bookingSchema.statics.findByUser = function(userId) {
+  return this.find({ userId });
+};
+
+bookingSchema.statics.updateStatus = function(id, status, technicianId = null, technicianName = null) {
+  const updateData = { status };
+  if (technicianId) {
+    updateData.technicianId = technicianId;
+    updateData.technicianName = technicianName;
   }
+  return this.findByIdAndUpdate(id, updateData, { new: true });
+};
 
-  static async findByUser(userId) {
-    const bookings = readData('bookings.json');
-    return bookings.filter(b => b.userId === userId);
-  }
-
-  static async create(bookingData) {
-    const bookings = readData('bookings.json');
-    const newBooking = {
-      id: 'BK-' + Math.floor(100000 + Math.random() * 900000), // Friendly Booking reference code
-      userId: bookingData.userId,
-      userName: bookingData.userName,
-      userEmail: bookingData.userEmail,
-      serviceId: bookingData.serviceId,
-      serviceName: bookingData.serviceName,
-      servicePrice: bookingData.servicePrice,
-      bookingDate: bookingData.bookingDate,
-      bookingTimeSlot: bookingData.bookingTimeSlot,
-      address: bookingData.address,
-      contactPhone: bookingData.contactPhone,
-      status: 'pending',
-      technicianId: null,
-      technicianName: null,
-      createdAt: new Date().toISOString()
-    };
-    bookings.push(newBooking);
-    writeData('bookings.json', bookings);
-    return newBooking;
-  }
-
-  static async updateStatus(id, status, technicianId = null, technicianName = null) {
-    const bookings = readData('bookings.json');
-    const bookingIndex = bookings.findIndex(b => b.id === id);
-    if (bookingIndex === -1) return null;
-
-    bookings[bookingIndex].status = status;
-    if (technicianId) {
-      bookings[bookingIndex].technicianId = technicianId;
-      bookings[bookingIndex].technicianName = technicianName;
-    }
-    writeData('bookings.json', bookings);
-    return bookings[bookingIndex];
-  }
-}
-
-module.exports = Booking;
+module.exports = mongoose.models.Booking || mongoose.model('Booking', bookingSchema);
