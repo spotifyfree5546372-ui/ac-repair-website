@@ -1,0 +1,47 @@
+<%- include('../partials/header') %>
+
+<div class="confirmation-container">
+  <div class="success-icon">✔</div>
+  <h1 style="font-size: 32px; font-weight: 800; color: var(--text-main); margin-bottom: 8px;">Booking Confirmed!</h1>
+  <p style="color: var(--text-muted); font-size: 15px;">
+    Your booking was successful. A professional technician will arrive on your scheduled date and time.
+  </p>
+
+  <div class="booking-details-box card">
+    <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 20px; text-align: center; color: var(--success);">Booking Reference: <%= booking.id %></h3>
+    
+    <div class="detail-row">
+      <span class="detail-label">Service Type:</span>
+      <span class="detail-value"><%= booking.serviceName %></span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-label">Date & Time:</span>
+      <span class="detail-value"><%= booking.bookingDate %> at <%= booking.bookingTimeSlot %></span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-label">Contact Phone:</span>
+      <span class="detail-value"><%= booking.contactPhone %></span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-label">Service Address:</span>
+      <span class="detail-value" style="text-align: right; max-width: 250px; word-wrap: break-word;"><%= booking.address %></span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-label">Booking Status:</span>
+      <span class="status-badge pending"><%= booking.status %></span>
+    </div>
+    <% if (booking.technicianName) { %>
+      <div class="detail-row" style="background-color: var(--secondary-light); padding: 12px; border-radius: var(--radius-md); margin-top: 10px; border: 1px solid rgba(8, 145, 178, 0.08);">
+        <span class="detail-label" style="color: var(--secondary);">Assigned Tech:</span>
+        <span class="detail-value" style="color: var(--secondary); font-weight: 800;">👨‍🔧 <%= booking.technicianName %></span>
+      </div>
+    <% } %>
+  </div>
+
+  <div style="margin-top: 30px; display: flex; justify-content: center; gap: 16px;">
+    <a href="/bookings/my-bookings" class="btn btn-secondary">View My Bookings</a>
+    <a href="/" class="btn btn-primary">Go to Homepage</a>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,65 @@
+[
+  {
+    "id": "srv-install-split",
+    "name": "Installation split AC",
+    "description": "Professional mounting, connection, piping, and complete performance testing for split AC systems.",
+    "price": "₹1,500",
+    "category": "Installation",
+    "icon": "plus-circle",
+    "duration": "2 Hours"
+  },
+  {
+    "id": "srv-uninstall-split",
+    "name": "Uninstalled split AC",
+    "description": "Safe split air conditioner dismounting, pipe capping, and refrigerant recovery.",
+    "price": "₹500",
+    "category": "Installation",
+    "icon": "minus-circle",
+    "duration": "1 Hour"
+  },
+  {
+    "id": "srv-install-window",
+    "name": "Installation Window AC",
+    "description": "Window air conditioner mounting, secure wall/window fitting, and sealing.",
+    "price": "₹600",
+    "category": "Installation",
+    "icon": "plus-circle",
+    "duration": "1.5 Hours"
+  },
+  {
+    "id": "srv-uninstall-window",
+    "name": "Uninstalled window AC",
+    "description": "Safe window air conditioner dismounting, frame removal, and clean-up.",
+    "price": "₹400",
+    "category": "Installation",
+    "icon": "minus-circle",
+    "duration": "1 Hour"
+  },
+  {
+    "id": "srv-jet-service",
+    "name": "Jet service",
+    "description": "Deep high-pressure water pump wash for filters, cooling coils, drain tray, and condenser.",
+    "price": "₹500",
+    "category": "Cleaning",
+    "icon": "wind",
+    "duration": "1 Hour"
+  },
+  {
+    "id": "srv-gas-full",
+    "name": "Gas charging full",
+    "description": "Complete system leakage diagnostic, joint brazing, vacuumization, and full refrigerant recharge.",
+    "price": "₹3,200",
+    "category": "Repair",
+    "icon": "cloud-lightning",
+    "duration": "2 Hours"
+  },
+  {
+    "id": "srv-gas-topup",
+    "name": "Gas top up",
+    "description": "Refueling low refrigerant levels to restore optimal cooling and pressure.",
+    "price": "₹1,700",
+    "category": "Repair",
+    "icon": "cloud-lightning",
+    "duration": "1 Hour"
+  }
+]

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Claymorphic online air conditioner installation, repair, cleaning, and maintenance service booking website.">
+  <title><%= title %> | CoolAir AC Booking</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="container nav-container">
+      <a href="/" class="logo" id="header-logo">
+        <svg class="icon-inline" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2v20"></path>
+          <path d="M12 12h10"></path>
+          <path d="M12 12H2"></path>
+          <path d="m19 12-7-7"></path>
+          <path d="m12 19 7-7"></path>
+          <path d="m5 12 7 7"></path>
+          <path d="m12 5-7 7"></path>
+        </svg>
+        Cool<span>Air</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="/" id="nav-home">Home</a></li>
+          <li><a href="/services" id="nav-services">Services</a></li>
+          <% if (user) { %>
+            <% if (user.role === 'admin') { %>
+              <li><a href="/admin/dashboard" class="nav-btn" id="nav-admin">Admin Panel</a></li>
+            <% } else { %>
+              <li><a href="/bookings/my-bookings" id="nav-my-bookings">My Bookings</a></li>
+              <li><a href="/bookings/new" class="nav-btn primary-action" id="nav-book-service">Book Now</a></li>
+            <% } %>
+            <li><a href="/auth/logout" class="nav-btn" id="nav-logout">Logout</a></li>
+          <% } else { %>
+            <li><a href="/auth/login" class="nav-btn" id="nav-login">Login</a></li>
+            <li><a href="/auth/signup" class="nav-btn primary-action" id="nav-signup">Sign Up</a></li>
+          <% } %>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="container">

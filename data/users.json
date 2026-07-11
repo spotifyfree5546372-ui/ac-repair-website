@@ -1,0 +1,18 @@
+[
+  {
+    "id": "user-admin",
+    "name": "Admin User",
+    "email": "admin@acservice.com",
+    "password": "$2a$10$tB7U9MBygyoEGg/mUQcIL.QI8baxLToUHTevyadeCwD/m6WH2M7We",
+    "role": "admin",
+    "createdAt": "2026-07-11T14:47:43.592Z"
+  },
+  {
+    "id": "user-john",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "$2a$10$HnpI3Of5Xb9uylUBJsga5unNTtYCZrxTC47Yr2Qy3lBvBw8rg3WzS",
+    "role": "user",
+    "createdAt": "2026-07-11T14:47:43.598Z"
+  }
+]

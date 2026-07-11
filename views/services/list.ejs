@@ -1,0 +1,40 @@
+<%- include('../partials/header') %>
+
+<section style="padding: 40px 0;">
+  <div class="section-header">
+    <h1 class="section-title">Explore Our Professional AC Services</h1>
+    <p class="section-subtitle">We provide certified repair, high-pressure jet cleaning, refrigerant gas leak diagnostics, and solid installation solutions.</p>
+  </div>
+
+  <div class="services-grid">
+    <% services.forEach((service, index) => { %>
+      <div class="card service-card">
+        <div class="service-icon">
+          <% if (service.icon === 'plus-circle') { %>
+            <span>➕</span>
+          <% } else if (service.icon === 'cloud-lightning') { %>
+            <span>⚡</span>
+          <% } else if (service.icon === 'wind') { %>
+            <span>💨</span>
+          <% } else if (service.icon === 'cpu') { %>
+            <span>⚙</span>
+          <% } else { %>
+            <span>🛠</span>
+          <% } %>
+        </div>
+        <h3 class="service-name"><%= service.name %></h3>
+        <span class="status-badge" style="align-self: flex-start; margin-bottom: 12px; background-color: var(--primary-light); color: var(--primary);"><%= service.category %></span>
+        <p class="service-desc"><%= service.description %></p>
+        <div class="service-meta">
+          <span class="service-price">Estimate: <%= service.price %></span>
+          <span class="service-duration">⏱ <%= service.duration %></span>
+        </div>
+        <div style="margin-top: 20px;">
+          <a href="/bookings/new?service=<%= service.id %>" class="btn btn-primary" style="width: 100%; text-align: center;" id="list-book-<%= service.id %>">Book Service</a>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

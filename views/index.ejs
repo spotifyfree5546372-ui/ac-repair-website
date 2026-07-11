@@ -1,0 +1,103 @@
+<%- include('partials/header') %>
+
+<section class="hero-section">
+  <div class="hero-left">
+    <h1 id="hero-title">Instant AC Repair & <br><span>HVAC Service</span></h1>
+    <p>Get fast, certified cooling services directly to your doorstep. Select a service, schedule your convenient slot, and track our professional technicians in real-time.</p>
+    
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">99.4%</span>
+        <span class="stat-label">Customer Satisfaction</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">15k+</span>
+        <span class="stat-label">Repairs Completed</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">24/7</span>
+        <span class="stat-label">Emergency Support</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-card">
+      <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 15px; color: var(--text-main);">Quick Booking Widget</h3>
+      <form action="/bookings/new" method="GET">
+        <div class="form-group" style="margin-bottom: 15px;">
+          <label for="serviceSelect" class="form-label" style="font-size: 13px;">Select Needed Service</label>
+          <select name="service" id="serviceSelect" class="form-control" style="padding: 10px 14px;" required>
+            <option value="">-- Select a Service --</option>
+            <% services.forEach(service => { %>
+              <option value="<%= service.id %>"><%= service.name %></option>
+            <% }) %>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;" id="hero-quick-book">Continue Booking &rarr;</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section style="padding: 40px 0;">
+  <div class="section-header">
+    <h2 class="section-title">Our Repair & Maintenance Services</h2>
+    <p class="section-subtitle">Certified technicians, transparent diagnostic estimates, and high-performance cooling results.</p>
+  </div>
+
+  <div class="services-grid">
+    <% services.forEach((service, index) => { %>
+      <div class="card service-card">
+        <div class="service-icon">
+          <% if (service.icon === 'plus-circle') { %>
+            <span>➕</span>
+          <% } else if (service.icon === 'cloud-lightning') { %>
+            <span>⚡</span>
+          <% } else if (service.icon === 'wind') { %>
+            <span>💨</span>
+          <% } else if (service.icon === 'cpu') { %>
+            <span>⚙</span>
+          <% } else { %>
+            <span>🛠</span>
+          <% } %>
+        </div>
+        <h3 class="service-name"><%= service.name %></h3>
+        <p class="service-desc"><%= service.description %></p>
+        <div class="service-meta">
+          <span class="service-price">Estimate: <%= service.price %></span>
+          <span class="service-duration">⏱ <%= service.duration %></span>
+        </div>
+        <div style="margin-top: 20px;">
+          <a href="/bookings/new?service=<%= service.id %>" class="btn btn-secondary btn-sm" style="width: 100%; text-align: center;" id="book-<%= service.id %>">Book Now</a>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<section style="padding: 40px 24px; background-color: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border-color); margin-bottom: 60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+  <div>
+    <h4 style="font-size: 16px; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-bottom: 8px;">Trust & Reliability</h4>
+    <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 12px; color: var(--text-main);">Why Homeowners Choose CoolFix</h3>
+    <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6;">Our team provides robust guarantees, safe technicians, and modern appointment tracking systems to ensure complete peace of mind.</p>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <div style="display: flex; gap: 12px; align-items: flex-start;">
+      <span style="font-size: 20px; background-color: var(--success-light); color: var(--success); padding: 8px; border-radius: 50%; line-height: 1; display: inline-flex;">✔</span>
+      <div>
+        <h5 style="font-weight: 700; font-size: 15px; margin-bottom: 2px;">Fully Certified Techs</h5>
+        <p style="font-size: 13px; color: var(--text-muted);">All team members hold certified HVAC diagnostics clearances.</p>
+      </div>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: flex-start;">
+      <span style="font-size: 20px; background-color: var(--success-light); color: var(--success); padding: 8px; border-radius: 50%; line-height: 1; display: inline-flex;">✔</span>
+      <div>
+        <h5 style="font-weight: 700; font-size: 15px; margin-bottom: 2px;">Genuine Replacements</h5>
+        <p style="font-size: 13px; color: var(--text-muted);">We use brand-verified equipment for sustainable fixes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
