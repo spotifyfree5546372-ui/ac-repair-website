@@ -17,7 +17,7 @@
       <div class="form-group">
         <label for="serviceId" class="form-label">Select Service</label>
         <select name="serviceId" id="serviceId" class="form-control" style="appearance: none; cursor: pointer;">
-          <option value="">-- Choose an AC Service --</option>
+          <option value="">Choose an AC Service</option>
           <% services.forEach(service => { %>
             <option value="<%= service.id %>" <%= selectedServiceId === service.id ? 'selected' : '' %>>
               <%= service.name %> (<%= service.price %>)
@@ -34,7 +34,7 @@
       <div class="form-group">
         <label for="bookingTimeSlot" class="form-label">Select Time Slot</label>
         <select name="bookingTimeSlot" id="bookingTimeSlot" class="form-control" required>
-          <option value="">-- Choose a Time Slot --</option>
+          <option value="">Choose a Time Slot</option>
           <option value="09:00 AM - 11:00 AM">09:00 AM - 11:00 AM (Morning)</option>
           <option value="11:00 AM - 01:00 PM">11:00 AM - 01:00 PM (Midday)</option>
           <option value="02:00 PM - 04:00 PM">02:00 PM - 04:00 PM (Afternoon)</option>

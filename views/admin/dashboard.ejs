@@ -67,7 +67,7 @@
                   <form action="/admin/assign-technician" method="POST" class="assign-form">
                     <input type="hidden" name="bookingId" value="<%= booking.id %>">
                     <select name="technicianId" class="assign-select" required>
-                      <option value="">-- Assign Tech --</option>
+                      <option value="">Assign Tech</option>
                       <% technicians.forEach(tech => { %>
                         <option value="<%= tech.id %>"><%= tech.name %> (<%= tech.rating %>⭐)</option>
                       <% }) %>

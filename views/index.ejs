@@ -34,7 +34,7 @@
         <div class="form-group" style="margin-bottom: 15px;">
           <label for="serviceSelect" class="form-label" style="font-size: 13px;">Select Needed Service</label>
           <select name="service" id="serviceSelect" class="form-control" style="padding: 10px 14px;" required>
-            <option value="">-- Select a Service --</option>
+            <option value="">Select a Service</option>
             <% services.forEach(service => { %>
               <option value="<%= service.id %>"><%= service.name %></option>
             <% }) %>
