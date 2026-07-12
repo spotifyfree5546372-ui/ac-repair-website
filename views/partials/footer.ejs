@@ -6,9 +6,56 @@
     </svg>
   </a>
 
-  <footer>
-    <div class="container" style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
-      <p style="font-size: 13px;">&copy; <%= new Date().getFullYear() %> Amaan AC Service. Made by Mohd Sharoz.</p>
+  <footer class="footer-plumfix">
+    <!-- Giant Watermark Text -->
+    <div class="footer-watermark">AMAAN</div>
+    
+    <div class="container footer-grid">
+      <!-- Brand column -->
+      <div class="footer-col brand-col">
+        <a href="/" class="footer-logo">
+          Amaan <span>AC Service</span>
+        </a>
+        <p class="footer-desc">Expert air conditioning services backed by quality work, honest pricing, and dependable customer care.</p>
+      </div>
+      
+      <!-- Contact column -->
+      <div class="footer-col">
+        <h4>CONTACT</h4>
+        <p><a href="mailto:sharoz@mail.com">sharoz@mail.com</a></p>
+        <p><a href="tel:+919719316515">+91 97193 16515</a></p>
+        <p style="margin-top: 8px;">Deoband, Uttar Pradesh, India</p>
+      </div>
+      
+      <!-- Pages column -->
+      <div class="footer-col">
+        <h4>PAGES</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/bookings/new">Book Now</a></li>
+          <li><a href="/auth/login">Login</a></li>
+        </ul>
+      </div>
+      
+      <!-- Socials column -->
+      <div class="footer-col">
+        <h4>SOCIAL LINKS</h4>
+        <ul>
+          <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter ↗</a></li>
+          <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook ↗</a></li>
+          <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram ↗</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="container footer-bottom">
+      <p class="copyright">&copy; <%= new Date().getFullYear() %> Amaan AC Service. All Rights Reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Terms and conditions</a>
+        <a href="#">Privacy Policy</a>
+      </div>
     </div>
   </footer>
   <div class="sticky-mobile-cta">
