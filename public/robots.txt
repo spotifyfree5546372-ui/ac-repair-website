@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /bookings/my-bookings
+
+Sitemap: https://amaan-ac-service.onrender.com/sitemap.xml
