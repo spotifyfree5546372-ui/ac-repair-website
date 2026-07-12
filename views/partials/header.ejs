@@ -26,6 +26,13 @@
         </svg>
         Aman<span>AC Service</span>
       </a>
+      
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+
       <nav>
         <ul>
           <li><a href="/" id="nav-home">Home</a></li>
@@ -47,4 +54,27 @@
       </nav>
     </div>
   </header>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuToggle = document.getElementById('menuToggle');
+      const nav = document.querySelector('header nav');
+      
+      if (menuToggle && nav) {
+        menuToggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          nav.classList.toggle('active');
+          menuToggle.classList.toggle('open');
+        });
+        
+        document.addEventListener('click', (e) => {
+          if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
+            nav.classList.remove('active');
+            menuToggle.classList.remove('open');
+          }
+        });
+      }
+    });
+  </script>
+  
   <main class="container">
