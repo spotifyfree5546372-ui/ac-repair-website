@@ -2,24 +2,52 @@
 
 </main>
 
-<!-- Hero Dark Section -->
-<section class="hero-centered animate-fade-in">
-  <h1 id="hero-title">FOCUSED ON <span>COOLING</span>,<br>BUILT FOR REAL COMFORT.</h1>
-  <p>We deliver certified AC repair, jet cleaning, and diagnostics to keep your space fresh and your systems running efficiently.</p>
+<!-- Hero PlumFix Section -->
+<section class="hero-plumfix">
+  <!-- Giant Watermark Text -->
+  <div class="hero-watermark">AMAAN</div>
   
-  <div class="hero-right-card" style="width: 100%; max-width: 360px; text-align: left; padding: 24px;">
-    <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 14px; text-align: center;">Book AC Service in 30 Sec</h3>
-    <form action="/bookings/new" method="GET">
-      <div class="form-group" style="margin-bottom: 12px;">
-        <select name="service" id="serviceSelect" class="form-control" style="padding: 10px 14px; font-size: 13.5px;" required>
-          <option value="">Select a Service</option>
-          <% services.forEach(service => { %>
-            <option value="<%= service.id %>"><%= service.name %></option>
-          <% }) %>
-        </select>
+  <div class="hero-plumfix-container">
+    <!-- Left Column Content -->
+    <div class="hero-left-content reveal-on-scroll">
+      <div class="hero-pill-badge">
+        <span class="pill-dot"></span> Reliable AC Services
       </div>
-      <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 13.5px;" id="hero-quick-book">Continue Booking &rarr;</button>
-    </form>
+      
+      <h1 class="hero-title-plumfix">
+        COMPLETE HOME<br>
+        <span>COOLING</span> SOLUTIONS
+      </h1>
+      
+      <p>We deliver certified AC repair, jet cleaning, and diagnostics to keep your space fresh and your systems running efficiently.</p>
+      
+      <div class="hero-action-buttons">
+        <a href="/bookings/new" class="btn-plumfix-primary">Book Service &rarr;</a>
+        <a href="/services" class="btn-plumfix-secondary">Learn More &rarr;</a>
+      </div>
+    </div>
+    
+    <!-- Right Column Image & Stats overlay -->
+    <div class="hero-right-content reveal-on-scroll">
+      <div class="tech-image-wrapper">
+        <img src="/images/bg_indian_tech.jpg" alt="Amaan AC Service Technician" class="tech-hero-img">
+      </div>
+      
+      <!-- Overlapping Stats Card -->
+      <div class="hero-floating-stats">
+        <div class="stats-num-title">500+</div>
+        <div class="stats-lbl-main">Happy Customers</div>
+        <div class="stats-lbl-sub">24/7 Emergency Service</div>
+        <div class="avatar-group-row">
+          <div class="avatar-group">
+            <span class="avatar-circle" style="background-color: #f44b0d; color: white; font-weight:700;">A</span>
+            <span class="avatar-circle" style="background-color: #3b82f6; color: white; font-weight:700;">S</span>
+            <span class="avatar-circle" style="background-color: #10b981; color: white; font-weight:700;">M</span>
+          </div>
+          <span class="avatar-text-label">House Owner</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
