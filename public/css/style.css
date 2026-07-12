@@ -766,6 +766,10 @@ footer p {
     font-size: 15px;
     margin-bottom: 24px;
   }
+  
+  .trust-badge-row {
+    display: none !important;
+  }
   .hero-stats {
     justify-content: center;
     gap: 20px;
