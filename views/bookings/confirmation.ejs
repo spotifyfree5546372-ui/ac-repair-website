@@ -10,6 +10,45 @@
   <div class="booking-details-box card">
     <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 20px; text-align: center; color: var(--success);">Booking Reference: <%= booking.id %></h3>
     
+    <!-- Progress Tracker Timeline -->
+    <div class="tracker-container">
+      <% 
+        let step1Class = "active";
+        let step2Class = "";
+        let step3Class = "";
+        let connectorClass = "step-1";
+        
+        if (booking.status === 'pending') {
+          step1Class = "active current";
+        } else if (booking.status === 'assigned') {
+          step1Class = "active";
+          step2Class = "active current";
+          connectorClass = "step-2";
+        } else if (booking.status === 'completed') {
+          step1Class = "active";
+          step2Class = "active";
+          step3Class = "active current";
+          connectorClass = "step-3";
+        }
+      %>
+      <div class="tracker-steps">
+        <div class="tracker-connector-active <%= connectorClass %>"></div>
+        
+        <div class="step-node <%= step1Class %>">
+          <div class="step-dot">1</div>
+          <span class="step-label">Placed</span>
+        </div>
+        <div class="step-node <%= step2Class %>">
+          <div class="step-dot">2</div>
+          <span class="step-label">Assigned</span>
+        </div>
+        <div class="step-node <%= step3Class %>">
+          <div class="step-dot">3</div>
+          <span class="step-label">Done</span>
+        </div>
+      </div>
+    </div>
+
     <div class="detail-row">
       <span class="detail-label">Service Type:</span>
       <span class="detail-value"><%= booking.serviceName %></span>
@@ -28,12 +67,21 @@
     </div>
     <div class="detail-row">
       <span class="detail-label">Booking Status:</span>
-      <span class="status-badge pending"><%= booking.status %></span>
+      <span class="status-badge <%= booking.status %>"><%= booking.status %></span>
     </div>
+    
     <% if (booking.technicianName) { %>
-      <div class="detail-row" style="background-color: var(--secondary-light); padding: 12px; border-radius: var(--radius-md); margin-top: 10px; border: 1px solid rgba(8, 145, 178, 0.08);">
-        <span class="detail-label" style="color: var(--secondary);">Assigned Tech:</span>
-        <span class="detail-value" style="color: var(--secondary); font-weight: 800;">👨‍🔧 <%= booking.technicianName %></span>
+      <div class="tech-profile-card">
+        <div class="tech-avatar">👨‍🔧</div>
+        <div class="tech-bio">
+          <h4 style="margin: 0; font-size: 15px; font-weight: 800; color: var(--text-main);"><%= booking.technicianName %></h4>
+          <p style="margin: 2px 0 0 0; font-size: 12.5px; font-weight: 700; color: var(--success);">⭐⭐⭐⭐⭐ 5.0 (Certified)</p>
+          <p style="margin: 4px 0 0 0; font-size: 12px; color: var(--text-muted); line-height: 1.4;">Aman AC Service Specialist assigned to your cooling unit.</p>
+        </div>
+        <div class="tech-actions">
+          <a href="tel:+919719316515" class="tech-btn tech-btn-call">📞 Call Tech</a>
+          <a href="https://wa.me/919719316515?text=Hello%20Aman,%20I%20have%20an%20active%20AC%20service%20booking%20(Ref:%20<%= booking.id %>)." target="_blank" rel="noopener noreferrer" class="tech-btn tech-btn-wa">💬 WhatsApp</a>
+        </div>
       </div>
     <% } %>
   </div>
