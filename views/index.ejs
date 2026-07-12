@@ -1,111 +1,147 @@
 <%- include('partials/header') %>
 
-<section class="hero-section">
-  <div class="hero-left">
-    <h1 id="hero-title">Instant AC Repair & <br><span>HVAC Service</span></h1>
-    <p>Get fast, certified cooling services directly to your doorstep. Select a service, schedule your convenient slot, and track our professional technicians in real-time.</p>
-    
-    <div class="trust-badge-row" style="margin-bottom: 24px;">
-      <span class="trust-badge-item">🏆 10+ Years Exp</span>
-      <span class="trust-badge-item">🛡 Certified HVAC Techs</span>
-      <span class="trust-badge-item">⚡ 100% Genuine Parts</span>
-    </div>
-    
-    <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-num">99.4%</span>
-        <span class="stat-label">Customer Satisfaction</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">15k+</span>
-        <span class="stat-label">Repairs Completed</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">24/7</span>
-        <span class="stat-label">Emergency Support</span>
-      </div>
-    </div>
-  </div>
+</main>
 
-  <div class="hero-right">
-    <div class="hero-right-card">
-      <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 15px; color: var(--text-main);">Book AC Service in 30 Sec</h3>
-      <form action="/bookings/new" method="GET">
-        <div class="form-group" style="margin-bottom: 15px;">
-          <label for="serviceSelect" class="form-label" style="font-size: 13px;">Select Needed Service</label>
-          <select name="service" id="serviceSelect" class="form-control" style="padding: 10px 14px;" required>
-            <option value="">Select a Service</option>
-            <% services.forEach(service => { %>
-              <option value="<%= service.id %>"><%= service.name %></option>
-            <% }) %>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;" id="hero-quick-book">Continue Booking &rarr;</button>
-      </form>
-    </div>
+<!-- Hero Dark Section -->
+<section class="hero-centered animate-fade-in">
+  <h1 id="hero-title">FOCUSED ON <span>COOLING</span>,<br>BUILT FOR REAL COMFORT.</h1>
+  <p>We deliver certified AC repair, jet cleaning, and diagnostics to keep your space fresh and your systems running efficiently.</p>
+  
+  <div class="hero-right-card" style="width: 100%; max-width: 360px; text-align: left; padding: 24px;">
+    <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 14px; text-align: center;">Book AC Service in 30 Sec</h3>
+    <form action="/bookings/new" method="GET">
+      <div class="form-group" style="margin-bottom: 12px;">
+        <select name="service" id="serviceSelect" class="form-control" style="padding: 10px 14px; font-size: 13.5px;" required>
+          <option value="">Select a Service</option>
+          <% services.forEach(service => { %>
+            <option value="<%= service.id %>"><%= service.name %></option>
+          <% }) %>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 13.5px;" id="hero-quick-book">Continue Booking &rarr;</button>
+    </form>
   </div>
 </section>
 
-<section style="padding: 40px 0;">
-  <div class="section-header">
-    <h2 class="section-title">Our Repair & Maintenance Services</h2>
-    <p class="section-subtitle">Certified technicians, transparent diagnostic estimates, and high-performance cooling results.</p>
+<!-- Stats Bar -->
+<section class="stats-bar">
+  <div class="stats-bar-item reveal-on-scroll">
+    <div class="stat-number">10+</div>
+    <div class="stat-label">Years Experience</div>
+  </div>
+  <div class="stats-bar-item reveal-on-scroll">
+    <div class="stat-number">500+</div>
+    <div class="stat-label">Happy Clients</div>
+  </div>
+  <div class="stats-bar-item reveal-on-scroll">
+    <div class="stat-number">98%</div>
+    <div class="stat-label">Satisfaction Rate</div>
+  </div>
+  <div class="stats-bar-item reveal-on-scroll">
+    <div class="stat-number">24/7</div>
+    <div class="stat-label">Support Available</div>
+  </div>
+</section>
+
+<main class="container">
+
+<!-- Showcase Services Section -->
+<section class="showcase-section">
+  <div class="section-header reveal-on-scroll" style="text-align: center; margin-bottom: 48px;">
+    <h2>OUR SERVICES</h2>
+    <p style="font-size: 15px; color: var(--text-muted);">Certified technicians, transparent diagnostic estimates, and high-performance cooling results.</p>
   </div>
 
-  <div class="services-grid">
-    <% services.forEach((service, index) => { %>
-      <div class="card service-card">
-        <div class="service-icon">
-          <% if (service.id.includes('install') && !service.id.includes('uninstall')) { %>
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="4" width="20" height="9" rx="1.5"></rect>
-              <line x1="2" y1="9" x2="22" y2="9"></line>
-              <path d="M6 17v2M12 17v2M18 17v2"></path>
-              <path d="M19 13v4m-2-2h4"></path>
-            </svg>
-          <% } else if (service.id.includes('uninstall')) { %>
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="4" width="20" height="9" rx="1.5"></rect>
-              <line x1="2" y1="9" x2="22" y2="9"></line>
-              <path d="M12 14v5m-3-2 3-3 3 3"></path>
-              <path d="M17 15h4"></path>
-            </svg>
-          <% } else if (service.id.includes('jet-service')) { %>
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
-              <path d="M3 12h3M18 12h3M12 18v3"></path>
-            </svg>
-          <% } else if (service.id.includes('gas')) { %>
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="7" y="7" width="10" height="13" rx="2"></rect>
-              <path d="M10 7V4h4v3"></path>
-              <circle cx="12" cy="13" r="3"></circle>
-              <path d="m12 13 1.5-1.5"></path>
-            </svg>
-          <% } else { %>
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-            </svg>
-          <% } %>
+  <div class="showcase-grid">
+    <% services.forEach(service => { %>
+      <a href="/bookings/new?service=<%= service.id %>" class="showcase-card reveal-on-scroll" id="showcase-<%= service.id %>">
+        <div class="showcase-content">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+            <div class="service-icon" style="background-color: var(--primary-light); color: var(--primary); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <% if (service.id.includes('install') && !service.id.includes('uninstall')) { %>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="9" rx="1.5"></rect>
+                  <line x1="2" y1="9" x2="22" y2="9"></line>
+                  <path d="M6 17v2M12 17v2M18 17v2"></path>
+                  <path d="M19 13v4m-2-2h4"></path>
+                </svg>
+              <% } else if (service.id.includes('uninstall')) { %>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="9" rx="1.5"></rect>
+                  <line x1="2" y1="9" x2="22" y2="9"></line>
+                  <path d="M12 14v5m-3-2 3-3 3 3"></path>
+                  <path d="M17 15h4"></path>
+                </svg>
+              <% } else if (service.id.includes('jet-service')) { %>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                  <path d="M3 12h3M18 12h3M12 18v3"></path>
+                </svg>
+              <% } else if (service.id.includes('gas')) { %>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="7" y="7" width="10" height="13" rx="2"></rect>
+                  <path d="M10 7V4h4v3"></path>
+                  <circle cx="12" cy="13" r="3"></circle>
+                  <path d="m12 13 1.5-1.5"></path>
+                </svg>
+              <% } else { %>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                </svg>
+              <% } %>
+            </div>
+            <span class="category-badge <%= service.category.toLowerCase() %>" style="margin-bottom: 0;"><%= service.category %></span>
+          </div>
+
+          <div class="showcase-text">
+            <h3 class="showcase-title"><%= service.name %></h3>
+            <p class="showcase-desc"><%= service.description %></p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
+              <span class="showcase-price">Estimate: <%= service.price %></span>
+              <span style="font-size: 13px; color: var(--text-muted); font-weight: 500;">⏱ <%= service.duration %></span>
+            </div>
+          </div>
+          
+          <div class="showcase-action">
+            Book Now &rarr;
+          </div>
         </div>
-        <span class="category-badge <%= service.category.toLowerCase() %>"><%= service.category %></span>
-        <h3 class="service-name"><%= service.name %></h3>
-        <p class="service-desc"><%= service.description %></p>
-        <div class="service-meta">
-          <span class="service-price">Estimate: <%= service.price %></span>
-          <span class="service-duration">⏱ <%= service.duration %></span>
-        </div>
-        <div style="margin-top: 20px;">
-          <a href="/bookings/new?service=<%= service.id %>" class="btn btn-secondary btn-sm" style="width: 100%; text-align: center;" id="book-<%= service.id %>">Book Now</a>
-        </div>
-      </div>
+      </a>
     <% }) %>
   </div>
 </section>
 
-<!-- Live Google Reviews Section -->
-<section class="reviews-section container">
-  <div class="google-rating-card">
+<!-- Numbered Categories -->
+<section class="numbered-section">
+  <div class="section-header reveal-on-scroll" style="text-align: center; margin-bottom: 48px;">
+    <span style="font-size: 13px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px;">Our Service Focus</span>
+    <h2 style="margin-top: 8px;">EVERYTHING YOU NEED FOR YOUR AC</h2>
+  </div>
+
+  <div class="numbered-grid">
+    <div class="numbered-card reveal-on-scroll">
+      <div class="numbered-num">.01</div>
+      <h3 class="numbered-title">Installation</h3>
+      <p class="numbered-desc">Professional setup and alignment for split and window AC units with certified mounting, piping, and performance leak testing.</p>
+    </div>
+    <div class="numbered-card reveal-on-scroll">
+      <div class="numbered-num">.02</div>
+      <h3 class="numbered-title">Jet Cleaning</h3>
+      <p class="numbered-desc">Deep pressure-pump wash for filters, cooling coils, drain trays, and condensers to maximize cooling speeds and restore airflow.</p>
+    </div>
+    <div class="numbered-card reveal-on-scroll">
+      <div class="numbered-num">.03</div>
+      <h3 class="numbered-title">Repairs & Gas</h3>
+      <p class="numbered-desc">Refrigerant gas top-ups with pressure dial checking, copper pipe brazing, and complete HVAC diagnostic troubleshooting.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Reviews Dark Section -->
+<section class="reviews-section">
+  <div class="google-rating-card reveal-on-scroll">
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="display:inline-block; vertical-align:middle;">
       <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
       <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -113,14 +149,13 @@
       <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
     </svg>
     <div class="google-rating-info">
-      <h4 style="margin:0; font-size:18px; font-weight:800;">Amaan AC Service</h4>
-      <div class="stars" style="color: #f59e0b; font-size: 16px;">★★★★☆ <span style="color:var(--text-muted); font-size:14px; font-weight:700; margin-left: 6px;">4.8 / 5.0 (342 Google Reviews)</span></div>
+      <h4 style="margin:0;">Amaan AC Service</h4>
+      <div class="stars" style="font-size: 16px;">★★★★☆ <span style="font-size:14px; font-weight:700; margin-left: 6px;">4.8 / 5.0 (342 Google Reviews)</span></div>
     </div>
   </div>
 
   <div class="reviews-grid">
-    <!-- Review 1 -->
-    <div class="review-card">
+    <div class="review-card reveal-on-scroll">
       <div class="review-header">
         <div class="reviewer-info">
           <div class="reviewer-avatar">RS</div>
@@ -129,13 +164,12 @@
             <span>Verified Customer</span>
           </div>
         </div>
-        <div class="review-stars" style="color: #f59e0b;">★★★★★</div>
+        <div class="review-stars">★★★★★</div>
       </div>
       <p class="review-text">"Very prompt and professional service. The technician arrived right on schedule, quickly identified the issue with my AC not cooling, and resolved it in no time. Will definitely book again."</p>
     </div>
 
-    <!-- Review 2 -->
-    <div class="review-card">
+    <div class="review-card reveal-on-scroll">
       <div class="review-header">
         <div class="reviewer-info">
           <div class="reviewer-avatar">AV</div>
@@ -144,13 +178,12 @@
             <span>Verified Customer</span>
           </div>
         </div>
-        <div class="review-stars" style="color: #f59e0b;">★★★★★</div>
+        <div class="review-stars">★★★★★</div>
       </div>
       <p class="review-text">"Excellent experience booking a service through this platform. The pricing was completely transparent with no hidden charges. The cooling works perfectly now."</p>
     </div>
 
-    <!-- Review 3 -->
-    <div class="review-card">
+    <div class="review-card reveal-on-scroll">
       <div class="review-header">
         <div class="reviewer-info">
           <div class="reviewer-avatar">MT</div>
@@ -159,35 +192,106 @@
             <span>Verified Customer</span>
           </div>
         </div>
-        <div class="review-stars" style="color: #f59e0b;">★★★★☆</div>
+        <div class="review-stars">★★★★☆</div>
       </div>
       <p class="review-text">"Very satisfied with the AC cleaning service. The team did a neat and clean job, and cleaned up after themselves. Great value for money and very polite behavior."</p>
     </div>
   </div>
 </section>
 
-<section style="padding: 40px 24px; background-color: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border-color); margin-bottom: 60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
-  <div>
-    <h4 style="font-size: 16px; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-bottom: 8px;">Trust & Reliability</h4>
-    <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 12px; color: var(--text-main);">Why Homeowners Choose Amaan AC Service</h3>
-    <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6;">Our team provides robust guarantees, safe technicians, and modern appointment tracking systems to ensure complete peace of mind.</p>
-  </div>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
-    <div style="display: flex; gap: 12px; align-items: flex-start;">
-      <span style="font-size: 20px; background-color: var(--success-light); color: var(--success); padding: 8px; border-radius: 50%; line-height: 1; display: inline-flex;">✔</span>
-      <div>
-        <h5 style="font-weight: 700; font-size: 15px; margin-bottom: 2px;">Fully Certified Techs</h5>
-        <p style="font-size: 13px; color: var(--text-muted);">All team members hold certified HVAC diagnostics clearances.</p>
+<main class="container">
+
+<!-- FAQ Section -->
+<section class="faq-section">
+  <h2 class="faq-title reveal-on-scroll">THINGS YOU SHOULD KNOW</h2>
+  <div class="faq-accordion">
+    <div class="faq-item reveal-on-scroll">
+      <div class="faq-question">
+        <span>How do I schedule a service?</span>
+        <span class="faq-toggle-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p style="margin: 0; padding-top: 8px;">Simply select a service from our booking tool above and click "Continue Booking" to pick a convenient date and time slot. Our system allocates the closest expert technician instantly.</p>
       </div>
     </div>
-    <div style="display: flex; gap: 12px; align-items: flex-start;">
-      <span style="font-size: 20px; background-color: var(--success-light); color: var(--success); padding: 8px; border-radius: 50%; line-height: 1; display: inline-flex;">✔</span>
-      <div>
-        <h5 style="font-weight: 700; font-size: 15px; margin-bottom: 2px;">Genuine Replacements</h5>
-        <p style="font-size: 13px; color: var(--text-muted);">We use brand-verified equipment for sustainable fixes.</p>
+    <div class="faq-item reveal-on-scroll">
+      <div class="faq-question">
+        <span>Are your technicians certified?</span>
+        <span class="faq-toggle-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p style="margin: 0; padding-top: 8px;">Yes, all Amaan AC Service technicians are fully certified HVAC specialists who undergo thorough background checks and training before handling customer appliances.</p>
+      </div>
+    </div>
+    <div class="faq-item reveal-on-scroll">
+      <div class="faq-question">
+        <span>What is your pricing policy?</span>
+        <span class="faq-toggle-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p style="margin: 0; padding-top: 8px;">We offer completely transparent, flat-rate pricing guides for every service before work begins. No hidden fees or surprise charges.</p>
+      </div>
+    </div>
+    <div class="faq-item reveal-on-scroll">
+      <div class="faq-question">
+        <span>How can I track my booking?</span>
+        <span class="faq-toggle-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <p style="margin: 0; padding-top: 8px;">Once your booking is confirmed, you will receive a real-time status tracker page link showing the assignment, status updates, and direct WhatsApp contact for your technician.</p>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        faqItems.forEach(other => other.classList.remove('active'));
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // Scroll Reveal Animation (Intersection Observer)
+    const animElements = document.querySelectorAll('.reveal-on-scroll');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = entry.target;
+          
+          // Stagger items if they belong to a grid/flex container
+          const parent = target.parentElement;
+          if (parent && (
+            parent.classList.contains('showcase-grid') || 
+            parent.classList.contains('numbered-grid') || 
+            parent.classList.contains('reviews-grid') || 
+            parent.classList.contains('stats-bar')
+          )) {
+            const siblings = Array.from(parent.children).filter(el => el.classList.contains('reveal-on-scroll'));
+            const index = siblings.indexOf(target);
+            if (index !== -1) {
+              target.style.transitionDelay = `${index * 80}ms`;
+            }
+          }
+          
+          target.classList.add('visible');
+          observer.unobserve(target);
+        }
+      });
+    }, {
+      threshold: 0.05,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    animElements.forEach(el => observer.observe(el));
+  });
+</script>
 
 <%- include('partials/footer') %>

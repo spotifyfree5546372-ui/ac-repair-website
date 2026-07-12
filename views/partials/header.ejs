@@ -3,28 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Claymorphic online air conditioner installation, repair, cleaning, and maintenance service booking website.">
+  <meta name="description" content="Premium doorstep AC installation, repair, cleaning, and maintenance services. Book in 30 seconds.">
   <title><%= title %> | Amaan AC Service</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header>
     <div class="container nav-container">
       <a href="/" class="logo" id="header-logo">
-        <svg class="icon-inline" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <path d="M12 2v20"></path>
-          <path d="M12 12h10"></path>
-          <path d="M12 12H2"></path>
-          <path d="m19 12-7-7"></path>
-          <path d="m12 19 7-7"></path>
-          <path d="m5 12 7 7"></path>
-          <path d="m12 5-7 7"></path>
-        </svg>
-        Amaan<span>AC Service</span>
+        Amaan <span>AC Service</span>
       </a>
       
       <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
@@ -59,14 +49,12 @@
     document.addEventListener('DOMContentLoaded', () => {
       const menuToggle = document.getElementById('menuToggle');
       const nav = document.querySelector('header nav');
-      
       if (menuToggle && nav) {
         menuToggle.addEventListener('click', (e) => {
           e.stopPropagation();
           nav.classList.toggle('active');
           menuToggle.classList.toggle('open');
         });
-        
         document.addEventListener('click', (e) => {
           if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
             nav.classList.remove('active');
