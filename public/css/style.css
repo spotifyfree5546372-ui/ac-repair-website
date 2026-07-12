@@ -104,6 +104,8 @@ nav a:hover { color: var(--text-on-dark); background-color: rgba(255,255,255,0.0
 .hero-plumfix {
   position: relative;
   background-color: var(--bg-dark);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
   padding: 120px 5% 80px;
   overflow: hidden;
   display: flex;
@@ -112,20 +114,18 @@ nav a:hover { color: var(--text-on-dark); background-color: rgba(255,255,255,0.0
   width: 100%;
 }
 
-.hero-watermark {
+.hero-plumfix::before {
+  content: '';
   position: absolute;
-  top: 45%;
-  left: 50%;
+  top: 50%;
+  left: 65%;
   transform: translate(-50%, -50%);
-  font-family: var(--font-display);
-  font-size: 19vw;
-  font-weight: 400;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.03);
-  letter-spacing: 0.05em;
-  pointer-events: none;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(244,75,13,0.13) 0%, rgba(33,29,29,0) 70%);
   z-index: 1;
-  text-transform: uppercase;
+  pointer-events: none;
+  will-change: transform;
 }
 
 .hero-plumfix-container {
@@ -514,26 +514,24 @@ nav a:hover { color: var(--text-on-dark); background-color: rgba(255,255,255,0.0
 .footer-plumfix {
   position: relative;
   background-color: var(--bg-footer);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
   padding: 100px 5% 40px;
   overflow: hidden;
   border-top: 1px solid var(--border-dark);
 }
 
-.footer-watermark {
+.footer-plumfix::before {
+  content: '';
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  font-family: var(--font-display);
-  font-size: 19vw;
-  font-weight: 400;
-  line-height: 0.8;
-  color: rgba(255, 255, 255, 0.015);
-  letter-spacing: 0.05em;
-  pointer-events: none;
+  width: 500px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(244,75,13,0.06) 0%, rgba(33,29,29,0) 70%);
   z-index: 1;
-  text-transform: uppercase;
-  white-space: nowrap;
+  pointer-events: none;
 }
 
 .footer-grid {
