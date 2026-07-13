@@ -96,19 +96,30 @@ exports.getTestEmail = async (req, res) => {
     }
 
     const nodemailer = require('nodemailer');
+    const dns = require('dns').promises;
+    let smtpHost = host;
+    
+    if (host === 'smtp.gmail.com') {
+      try {
+        const records = await dns.resolve4('smtp.gmail.com');
+        if (records && records.length > 0) {
+          smtpHost = records[0];
+        }
+      } catch (dnsErr) {
+        console.error('DNS IPv4 Resolution failed, falling back to hostname:', dnsErr);
+      }
+    }
+
     const transportConfig = {
+      host: smtpHost,
+      port: Number(port),
+      secure: Number(port) === 465,
       auth: { user, pass },
       connectionTimeout: 10000, // 10 seconds timeout
-      family: 4 // Force IPv4
+      tls: {
+        servername: host === 'smtp.gmail.com' ? 'smtp.gmail.com' : undefined 
+      }
     };
-
-    if (host === 'smtp.gmail.com' || user.toLowerCase().endsWith('@gmail.com')) {
-      transportConfig.service = 'gmail';
-    } else {
-      transportConfig.host = host;
-      transportConfig.port = Number(port);
-      transportConfig.secure = Number(port) === 465;
-    }
 
     const transporter = nodemailer.createTransport(transportConfig);
 

@@ -25,19 +25,32 @@ async function sendBookingEmail(booking) {
   }
 
   try {
-    // 3. Create mail transport client using built-in service optimizations for Gmail
-    const transportConfig = {
-      auth: { user, pass },
-      family: 4 // Force IPv4
-    };
-
-    if (host === 'smtp.gmail.com' || user.toLowerCase().endsWith('@gmail.com')) {
-      transportConfig.service = 'gmail';
-    } else {
-      transportConfig.host = host;
-      transportConfig.port = Number(port);
-      transportConfig.secure = Number(port) === 465;
+    const dns = require('dns').promises;
+    let smtpHost = host;
+    
+    // Explicitly resolve IPv4 to completely bypass Render's broken IPv6 network stack
+    if (host === 'smtp.gmail.com') {
+      try {
+        const records = await dns.resolve4('smtp.gmail.com');
+        if (records && records.length > 0) {
+          smtpHost = records[0];
+        }
+      } catch (dnsErr) {
+        console.error('DNS IPv4 Resolution failed, falling back to hostname:', dnsErr);
+      }
     }
+
+    // 3. Create mail transport client with forced IPv4 host and TLS servername override
+    const transportConfig = {
+      host: smtpHost,
+      port: Number(port),
+      secure: Number(port) === 465,
+      auth: { user, pass },
+      tls: {
+        // Ensure SSL certificates match the original host, not the resolved IP address
+        servername: host === 'smtp.gmail.com' ? 'smtp.gmail.com' : undefined 
+      }
+    };
 
     const transporter = nodemailer.createTransport(transportConfig);
 
