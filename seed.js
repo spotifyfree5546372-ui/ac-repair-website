@@ -119,7 +119,7 @@ async function seed() {
     {
       name: 'Amaan Admin',
       email: 'amaan@mail.com',
-      password: 'khan@122',
+      password: 'khan@786',
       role: 'admin'
     },
     {
@@ -129,7 +129,7 @@ async function seed() {
       role: 'user'
     }
   ]);
-  console.log('✔ Seeded users (Admin 1: sharoz@mail.com / sharoz@122, Admin 2: amaan@mail.com / khan@122, User: john@example.com / password123).');
+  console.log('✔ Seeded users (Admin 1: sharoz@mail.com / sharoz@122, Admin 2: amaan@mail.com / khan@786, User: john@example.com / password123).');
 
   console.log('Seed completed successfully!');
   await mongoose.disconnect();
