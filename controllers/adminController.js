@@ -96,14 +96,21 @@ exports.getTestEmail = async (req, res) => {
     }
 
     const nodemailer = require('nodemailer');
-    const transporter = nodemailer.createTransport({
-      host: host,
-      port: Number(port),
-      secure: Number(port) === 465,
+    const transportConfig = {
       auth: { user, pass },
       connectionTimeout: 10000, // 10 seconds timeout
-      family: 4 // Force IPv4 to bypass Render's lack of IPv6 support
-    });
+      family: 4 // Force IPv4
+    };
+
+    if (host === 'smtp.gmail.com' || user.toLowerCase().endsWith('@gmail.com')) {
+      transportConfig.service = 'gmail';
+    } else {
+      transportConfig.host = host;
+      transportConfig.port = Number(port);
+      transportConfig.secure = Number(port) === 465;
+    }
+
+    const transporter = nodemailer.createTransport(transportConfig);
 
     await transporter.sendMail({
       from: `"Amaan AC Service Alerts" <${user}>`,

@@ -25,17 +25,21 @@ async function sendBookingEmail(booking) {
   }
 
   try {
-    // 3. Create mail transport client
-    const transporter = nodemailer.createTransport({
-      host: host,
-      port: Number(port),
-      secure: Number(port) === 465, // True for 465, false for 587
-      auth: {
-        user: user,
-        pass: pass
-      },
-      family: 4 // Force IPv4 to avoid Render's IPv6 ENETUNREACH errors
-    });
+    // 3. Create mail transport client using built-in service optimizations for Gmail
+    const transportConfig = {
+      auth: { user, pass },
+      family: 4 // Force IPv4
+    };
+
+    if (host === 'smtp.gmail.com' || user.toLowerCase().endsWith('@gmail.com')) {
+      transportConfig.service = 'gmail';
+    } else {
+      transportConfig.host = host;
+      transportConfig.port = Number(port);
+      transportConfig.secure = Number(port) === 465;
+    }
+
+    const transporter = nodemailer.createTransport(transportConfig);
 
     // 4. Construct email message body
     const emailSubject = `🔔 New AC Service Booking - Ref: ${booking.id}`;
