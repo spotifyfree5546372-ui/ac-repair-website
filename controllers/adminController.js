@@ -15,6 +15,7 @@ exports.getDashboard = async (req, res) => {
       pending: bookings.filter(b => b.status === 'pending').length,
       assigned: bookings.filter(b => b.status === 'assigned').length,
       completed: bookings.filter(b => b.status === 'completed').length,
+      rejected: bookings.filter(b => b.status === 'rejected').length,
     };
 
     res.render('admin/dashboard', { 

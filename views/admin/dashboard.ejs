@@ -4,7 +4,7 @@
   <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 24px;">Admin Operations Panel</h1>
 
   <!-- Stats Grid -->
-  <div class="stats-grid">
+  <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
     <div class="stat-card">
       <h3>Total Bookings</h3>
       <div class="value"><%= stats.total %></div>
@@ -20,6 +20,10 @@
     <div class="stat-card">
       <h3>Completed</h3>
       <div class="value" style="color: var(--success);"><%= stats.completed %></div>
+    </div>
+    <div class="stat-card">
+      <h3>Rejected</h3>
+      <div class="value" style="color: #F2181E;"><%= stats.rejected %></div>
     </div>
   </div>
 
@@ -64,25 +68,41 @@
               </td>
               <td data-label="Assign / Actions">
                 <% if (booking.status === 'pending') { %>
-                  <form action="/admin/assign-technician" method="POST" class="assign-form">
-                    <input type="hidden" name="bookingId" value="<%= booking.id %>">
-                    <select name="technicianId" class="assign-select" required>
-                      <option value="">Assign Tech</option>
-                      <% technicians.forEach(tech => { %>
-                        <option value="<%= tech.id %>"><%= tech.name %> (<%= tech.rating %>⭐)</option>
-                      <% }) %>
-                    </select>
-                    <button type="submit" class="btn btn-primary btn-sm">Assign</button>
-                  </form>
-                <% } else if (booking.status === 'assigned') { %>
-                  <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <span style="font-weight: 700; color: var(--secondary); font-size: 13px;">👨‍🔧 <%= booking.technicianName %></span>
+                  <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+                    <form action="/admin/assign-technician" method="POST" class="assign-form">
+                      <input type="hidden" name="bookingId" value="<%= booking.id %>">
+                      <select name="technicianId" class="assign-select" required>
+                        <option value="">Assign Tech</option>
+                        <% technicians.forEach(tech => { %>
+                          <option value="<%= tech.id %>"><%= tech.name %> (<%= tech.rating %>⭐)</option>
+                        <% }) %>
+                      </select>
+                      <button type="submit" class="btn btn-primary btn-sm">Assign</button>
+                    </form>
                     <form action="/admin/update-status" method="POST">
                       <input type="hidden" name="bookingId" value="<%= booking.id %>">
-                      <input type="hidden" name="status" value="completed">
-                      <button type="submit" class="btn btn-secondary btn-sm" style="background-color: var(--success-light); color: var(--success); border-color: rgba(16, 185, 129, 0.15); font-size: 12px; padding: 4px 10px;">Mark Completed</button>
+                      <input type="hidden" name="status" value="rejected">
+                      <button type="submit" class="btn btn-secondary btn-sm" style="background-color: rgba(242, 24, 30, 0.05); color: #F2181E; border-color: rgba(242, 24, 30, 0.15); font-size: 11px; padding: 4px 10px; font-weight: 700;">Reject Booking</button>
                     </form>
                   </div>
+                <% } else if (booking.status === 'assigned') { %>
+                  <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+                    <span style="font-weight: 700; color: var(--secondary); font-size: 13px;">👨‍🔧 <%= booking.technicianName %></span>
+                    <div style="display: flex; gap: 8px;">
+                      <form action="/admin/update-status" method="POST">
+                        <input type="hidden" name="bookingId" value="<%= booking.id %>">
+                        <input type="hidden" name="status" value="completed">
+                        <button type="submit" class="btn btn-secondary btn-sm" style="background-color: var(--success-light); color: var(--success); border-color: rgba(16, 185, 129, 0.15); font-size: 11px; padding: 4px 10px; font-weight: 700;">Mark Completed</button>
+                      </form>
+                      <form action="/admin/update-status" method="POST">
+                        <input type="hidden" name="bookingId" value="<%= booking.id %>">
+                        <input type="hidden" name="status" value="rejected">
+                        <button type="submit" class="btn btn-secondary btn-sm" style="background-color: rgba(242, 24, 30, 0.05); color: #F2181E; border-color: rgba(242, 24, 30, 0.15); font-size: 11px; padding: 4px 10px; font-weight: 700;">Reject</button>
+                      </form>
+                    </div>
+                  </div>
+                <% } else if (booking.status === 'rejected') { %>
+                  <span style="color: #F2181E; font-weight: 700; font-size: 13px;">❌ Booking Rejected</span>
                 <% } else { %>
                   <span style="color: var(--success); font-weight: 700; font-size: 13px;">👨‍🔧 <%= booking.technicianName || 'N/A' %> (Completed)</span>
                 <% } %>

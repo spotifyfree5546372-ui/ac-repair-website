@@ -13,7 +13,7 @@ const bookingSchema = new mongoose.Schema({
   bookingTimeSlot: { type: String, required: true },
   address: { type: String, required: true },
   contactPhone: { type: String, required: true },
-  status: { type: String, default: 'pending', enum: ['pending', 'assigned', 'completed'] },
+  status: { type: String, default: 'pending', enum: ['pending', 'assigned', 'completed', 'rejected'] },
   technicianId: { type: String, default: null },
   technicianName: { type: String, default: null },
   createdAt: { type: Date, default: Date.now }
