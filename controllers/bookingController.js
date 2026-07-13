@@ -1,6 +1,5 @@
 const Booking = require('../models/Booking');
 const Service = require('../models/Service');
-const { sendBookingEmail } = require('../utils/email');
 
 exports.getNewBooking = async (req, res) => {
   try {
@@ -53,9 +52,6 @@ exports.postCreateBooking = async (req, res) => {
       address,
       contactPhone
     });
-
-    // Trigger notification email in background (does not block client redirect)
-    sendBookingEmail(booking).catch(err => console.error('Error in sendBookingEmail:', err));
 
     res.redirect(`/bookings/confirmation?id=${booking.id}`);
   } catch (err) {
