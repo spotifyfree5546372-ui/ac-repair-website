@@ -107,13 +107,19 @@ async function seed() {
   await Technician.insertMany(technicians);
   console.log('✔ Seeded technicians.');
 
-  // 4. Users (including Admin)
+  // 4. Users (including Admins)
   // Password hashing is handled automatically by User schema pre-save hook
   await User.create([
     {
-      name: 'Admin User',
+      name: 'Sharoz Admin',
       email: 'sharoz@mail.com',
       password: 'sharoz@122',
+      role: 'admin'
+    },
+    {
+      name: 'Amaan Admin',
+      email: 'amaan@mail.com',
+      password: 'amaan@122',
       role: 'admin'
     },
     {
@@ -123,7 +129,7 @@ async function seed() {
       role: 'user'
     }
   ]);
-  console.log('✔ Seeded users (Admin: sharoz@mail.com / sharoz@122, User: john@example.com / password123).');
+  console.log('✔ Seeded users (Admin 1: sharoz@mail.com / sharoz@122, Admin 2: amaan@mail.com / amaan@122, User: john@example.com / password123).');
 
   console.log('Seed completed successfully!');
   await mongoose.disconnect();
