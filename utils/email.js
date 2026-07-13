@@ -33,7 +33,8 @@ async function sendBookingEmail(booking) {
       auth: {
         user: user,
         pass: pass
-      }
+      },
+      family: 4 // Force IPv4 to avoid Render's IPv6 ENETUNREACH errors
     });
 
     // 4. Construct email message body

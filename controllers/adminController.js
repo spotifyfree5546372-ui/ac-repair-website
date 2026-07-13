@@ -101,7 +101,8 @@ exports.getTestEmail = async (req, res) => {
       port: Number(port),
       secure: Number(port) === 465,
       auth: { user, pass },
-      connectionTimeout: 10000 // 10 seconds timeout
+      connectionTimeout: 10000, // 10 seconds timeout
+      family: 4 // Force IPv4 to bypass Render's lack of IPv6 support
     });
 
     await transporter.sendMail({
