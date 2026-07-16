@@ -5,23 +5,23 @@
 
   <!-- Stats Grid -->
   <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
-    <div class="stat-card">
+    <div class="stat-card filter-card active" onclick="filterBookings('all', this)" style="cursor: pointer; transition: transform 0.2s;">
       <h3>Total Bookings</h3>
       <div class="value"><%= stats.total %></div>
     </div>
-    <div class="stat-card">
+    <div class="stat-card filter-card" onclick="filterBookings('pending', this)" style="cursor: pointer; transition: transform 0.2s;">
       <h3>Pending</h3>
       <div class="value" style="color: var(--warning);"><%= stats.pending %></div>
     </div>
-    <div class="stat-card">
+    <div class="stat-card filter-card" onclick="filterBookings('assigned', this)" style="cursor: pointer; transition: transform 0.2s;">
       <h3>Assigned</h3>
       <div class="value" style="color: var(--secondary);"><%= stats.assigned %></div>
     </div>
-    <div class="stat-card">
+    <div class="stat-card filter-card" onclick="filterBookings('completed', this)" style="cursor: pointer; transition: transform 0.2s;">
       <h3>Completed</h3>
       <div class="value" style="color: var(--success);"><%= stats.completed %></div>
     </div>
-    <div class="stat-card">
+    <div class="stat-card filter-card" onclick="filterBookings('rejected', this)" style="cursor: pointer; transition: transform 0.2s;">
       <h3>Rejected</h3>
       <div class="value" style="color: #F2181E;"><%= stats.rejected %></div>
     </div>
@@ -48,7 +48,7 @@
         </thead>
         <tbody>
           <% bookings.forEach(booking => { %>
-            <tr>
+            <tr class="booking-row" data-status="<%= booking.status %>">
               <td style="font-weight: 800; color: var(--primary);" data-label="Booking ID"><%= booking.id %></td>
               <td data-label="Customer">
                 <span style="font-weight: 700;"><%= booking.userName %></span><br>
@@ -114,5 +114,45 @@
     </div>
   <% } %>
 </section>
+
+<script>
+  function filterBookings(status, clickedElement) {
+    // 1. Visual update for active card
+    document.querySelectorAll('.filter-card').forEach(card => {
+      card.style.transform = 'scale(1)';
+      card.style.boxShadow = 'var(--shadow-sm)';
+      card.style.border = 'none';
+    });
+    
+    clickedElement.style.transform = 'scale(1.05)';
+    clickedElement.style.boxShadow = 'var(--shadow-lg)';
+    clickedElement.style.border = '2px solid var(--primary)';
+
+    // 2. Filter the table rows
+    const rows = document.querySelectorAll('.booking-row');
+    rows.forEach(row => {
+      if (status === 'all') {
+        row.style.display = '';
+      } else {
+        if (row.getAttribute('data-status') === status) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      }
+    });
+  }
+
+  // Initialize all cards with default shadow
+  document.querySelectorAll('.filter-card').forEach(card => {
+    card.style.boxShadow = 'var(--shadow-sm)';
+  });
+  
+  // Set initial active state for 'Total'
+  const firstCard = document.querySelector('.filter-card');
+  if(firstCard) {
+    firstCard.style.border = '2px solid var(--primary)';
+  }
+</script>
 
 <%- include('../partials/footer') %>
